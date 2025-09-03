@@ -1,0 +1,35 @@
+<!-- sidebar.component.html -->
+<div class="flex flex-col h-full">
+  <!-- Logo -->
+  <div class="p-4">
+    <img src="logo.webp" alt="Logo" class="h-10 mx-auto" />
+  </div>
+
+  <!-- Menu -->
+  <nav class="flex-1 p-4 space-y-2">
+    <a
+      routerLink="/blogs"
+      routerLinkActive="bg-white/10"
+      class="px-3 py-2 rounded hover:bg-white/10 flex gap-1 text-sm items-center"
+    >
+      <img src="icons/blog-icon.svg" width="24px" alt="blog icon" />Blog</a
+    >
+    <a
+      routerLink="/applications"
+      routerLinkActive="bg-white/10"
+      class="px-3 py-2 rounded hover:bg-white/10 flex gap-1 text-sm items-center"
+    >
+      <img
+        src="icons/job-seekers-icon.svg"
+        width="24px"
+        alt="job seekers form icon"
+      />
+      Job Seeker Forms</a
+    >
+  </nav>
+
+  <!-- Footer
+  <div class="p-4 border-t border-slate-700 text-sm text-gray-400">
+    &copy; 2025 Company Name
+  </div> -->
+</div>

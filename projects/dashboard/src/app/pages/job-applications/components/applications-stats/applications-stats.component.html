@@ -1,0 +1,12 @@
+<div class="">
+  <div class="flex flex-wrap gap-4">
+    @for (stat of stats(); track stat.key) {
+    <button
+      [class]="getButtonClass(stat.active)"
+      (click)="onStatClick(stat.key)"
+    >
+      <span class="font-medium">{{ stat.label }}</span>
+    </button>
+    }
+  </div>
+</div>

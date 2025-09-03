@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@theme {
+  --color-main: #1d3947;
+  --color-text-black: #121417;
+  --color-main-orange: #daa520;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+.scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll-hidden {
+  -ms-overflow-style: none; /* IE و Edge */
+  scrollbar-width: none; /* Firefox */
+}

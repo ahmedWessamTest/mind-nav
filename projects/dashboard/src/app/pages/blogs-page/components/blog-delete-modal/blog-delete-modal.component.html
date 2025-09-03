@@ -1,0 +1,72 @@
+@if(isOpen()){
+<div
+  id="popup-modal"
+  tabindex="-1"
+  class="bg-[#00000033] flex overflow-y-auto overflow-x-hidden fixed z-50 justify-center items-center w-full md:inset-0"
+>
+  <div class="relative p-4 w-full max-w-md max-h-full">
+    <div class="relative bg-white rounded-lg shadow-sm">
+      <button
+        type="button"
+        class="absolute cursor-pointer top-3 end-2.5 text-gray-400 bg-transparent hover:bg-[#666666] hover:text-white rounded-full text-sm w-8 h-8 ms-auto inline-flex justify-center items-center"
+        (click)="toggleModal()"
+      >
+        <svg
+          class="w-3 h-3"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 14 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+          />
+        </svg>
+        <span class="sr-only">Close modal</span>
+      </button>
+      <div class="p-4 md:p-5 text-center">
+        <svg
+          class="mx-auto mb-4 text-gray-400"
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="36"
+          viewBox="0 0 32 36"
+          fill="none"
+        >
+          <path
+            d="M6 36C4.9 36 3.95867 35.6087 3.176 34.826C2.39333 34.0433 2.00133 33.1013 2 32V6H0V2H10V0H22V2H32V6H30V32C30 33.1 29.6087 34.042 28.826 34.826C28.0433 35.61 27.1013 36.0013 26 36H6ZM26 6H6V32H26V6ZM10 28H14V10H10V28ZM18 28H22V10H18V28Z"
+            fill="#E60000"
+          />
+        </svg>
+        <h3 class="text-2xl font-bold">You’re about to delete an article</h3>
+        <p class="my-3 font-semibold text-[#333333]">
+          Once you confirm the deletion , the article would permanently deleted
+        </p>
+
+        <div class="flex items-center gap-2">
+          <button
+            data-modal-hide="popup-modal"
+            type="button"
+            class="cursor-pointer w-full text-center py-2 font-bold text-sm rounded-full focus:outline-none bg-[#AAAAAA] text-white border border-gray-200 hover:bg-[#7e7c7c]"
+            (click)="toggleModal()"
+          >
+            Cancel
+          </button>
+          <button
+            data-modal-hide="popup-modal"
+            type="button"
+            class="text-white cursor-pointer w-full py-2 text-center bg-[#E50000] rounded-full hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium text-sm"
+            (click)="onConfirm()"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+}

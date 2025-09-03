@@ -1,0 +1,72 @@
+<section class="rounded-lg border border-[#DBE0E5] overflow-hidden">
+  <table class="divide-y w-full divide-gray-200">
+    <thead class="bg-[#FBFDFE]">
+      <tr>
+        @for (header of headers; track header.key) {
+        <th
+          class="py-3 px-2 text-start text-xs text-[#121417] tracking-wider font-normal"
+        >
+          {{ header.label }}
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+      @for (application of applications() | searchBy:searchText():'fullName';
+      track application.id) {
+      <tr class="hover:bg-gray-50 transition-colors duration-150 text-start">
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#121417]">
+          {{ application.fullName }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#1D3947]">
+          {{ application.email }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#1D3947]">
+          {{ application.phone }}
+        </td>
+        <td class="py-4 px-2 text-sm text-[#1D3947]">
+          {{ application.currentJobTitle }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#1D3947]">
+          {{ application.yearsOfExperience }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#1D3947]">
+          {{ application.nationality }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm text-[#1D3947]">
+          {{ application.submissionCode }}
+        </td>
+        <td class="py-4 px-2 whitespace-nowrap text-sm">
+          <button
+            (click)="onActionClick(application.id)"
+            class="text-[#1D3947] cursor-pointer hover:text-blue-900 font-medium transition-colors duration-150"
+          >
+            View
+          </button>
+        </td>
+      </tr>
+      }@empty {
+      <tr>
+        <td colspan="8" class="p-5 text-center text-gray-500 border-0">
+          No data available
+          <img
+            src="./icons/empty-box.webp"
+            width="70px"
+            class="block mx-auto mt-2"
+            alt=""
+          />
+        </td>
+      </tr>
+
+      }
+    </tbody>
+  </table>
+  @if(applications().length === 0) {
+  <div class="text-center py-12">
+    <div class="text-gray-500">
+      <p class="text-lg font-medium">No applications found</p>
+      <p class="mt-1">Try adjusting your filters</p>
+    </div>
+  </div>
+  }
+</section>

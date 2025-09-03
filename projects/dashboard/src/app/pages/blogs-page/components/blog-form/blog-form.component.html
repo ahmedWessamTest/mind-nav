@@ -1,0 +1,133 @@
+<!-- src/app/new-post/new-post.component.html -->
+<div class="mx-auto py-6">
+  <h2 class="text-lg font-semibold mb-4">New Post</h2>
+
+  <form
+    [formGroup]="postForm"
+    (ngSubmit)="blogToEdit() ? updateBlog() : addNow()"
+  >
+    <!-- Title -->
+    <label class="block mb-2 text-[#121417]">Title</label>
+    <input
+      type="text"
+      formControlName="title"
+      placeholder="Enter title"
+      class="w-full border border-[#DBE0E5] rounded px-3 py-2 mb-1 focus:outline-none focus:border-[#a1adba]"
+    />
+    @if(postForm.get('title')?.touched && postForm.get('title')?.invalid){
+    <div class="text-red-500 text-sm mb-4">Title is required</div>
+    }
+
+    <!-- Content -->
+    <label for="content" class="block mb-2 text-[#121417]">Content</label>
+    <textarea
+      id="content"
+      formControlName="content"
+      rows="4"
+      class="w-full border border-[#DBE0E5] rounded px-3 py-2 mb-1 focus:outline-none focus:border-[#a1adba]"
+    ></textarea>
+    @if(postForm.get('content')?.touched && postForm.get('content')?.invalid){
+    <div class="text-red-500 text-sm mb-4">Content is required</div>
+    }
+
+    <!-- Cover Image -->
+    <label for="imageCover" class="block mb-2 text-[#121417] text-lg font-bold"
+      >Cover Image</label
+    >
+    <div
+      [ngClass]="{
+        'border-yellow-500': isDragOver(),
+        'bg-yellow-50': isDragOver()
+      }"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+      class="border-2 border-[#DBE0E5] border-dashed rounded-lg p-6 text-center mb-4"
+    >
+      @if(imagePreview()){
+      <div class="mt-4">
+        <img
+          [src]="imagePreview()"
+          alt="Cover Preview"
+          class="max-h-48 mx-auto rounded-lg shadow"
+        />
+      </div>
+      }@else {
+      <p class="text-[#121417] text-lg font-bold mb-2">Upload Cover Image</p>
+      <p class="text-sm text-[#121417] mb-3">
+        Drag and drop or click to upload
+      </p>
+      }
+      <input
+        id="imageCover"
+        type="file"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+        class="hidden"
+        #fileInput
+      />
+      <button
+        type="button"
+        class="px-4 py-1 mt-5 border border-[#1D3947] rounded-full hover:bg-gray-100 cursor-pointer text-[#1D3947] font-bold text-sm"
+        (click)="fileInput.click()"
+      >
+        Upload
+      </button>
+      @if(!coverImage && postForm.get('coverImage')?.touched){
+      <div class="text-red-500 text-sm mb-4">Image is required</div>
+      }
+    </div>
+
+    <!-- Category -->
+    <label for="category" class="block mb-2 text-[#121417]">Category</label>
+    <select
+      id="category"
+      formControlName="category"
+      class="border min-w-1/2 border-[#DBE0E5] rounded px-3 py-2 mb-1 focus:outline-none focus:border-[#a1adba]"
+    >
+      <option value="" disabled>Select category</option>
+      <option>Technology</option>
+      <option>Business</option>
+      <option>Education</option>
+    </select>
+    @if(postForm.get('category')?.touched && postForm.get('category')?.invalid)
+    {
+    <div class="text-red-500 text-sm mb-6">Category is required</div>
+    }
+
+    <!-- Buttons -->
+    <div class="flex justify-center gap-3 mt-10">
+      @if(blogToEdit()?.status === 'draft') {
+      <button
+        (click)="publishDraft()"
+        type="submit"
+        class="px-4 py-2 bg-[#DAA520] text-white rounded-full font-semibold cursor-pointer hover:bg-yellow-500"
+      >
+        Publish
+      </button>
+      }@else { @if(blogToEdit()){
+      <button
+        type="button"
+        class="cursor-pointer underline text-[#1D3947] font-bold"
+        (click)="cancelEdits()"
+      >
+        cancel
+      </button>
+      }
+      <button
+        type="button"
+        (click)="blogToEdit() ? draftPublished() : saveAsDraft()"
+        class="px-4 py-2 border border-[#1D3947] font-bold cursor-pointer text-[#1D3947] rounded-full hover:bg-gray-100"
+      >
+        Save as Draft
+      </button>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-[#DAA520] text-white rounded-full font-semibold cursor-pointer hover:bg-yellow-500"
+      >
+        {{ blogToEdit() ? "Edit Blog" : "Add now" }}
+      </button>
+      }
+    </div>
+  </form>
+</div>

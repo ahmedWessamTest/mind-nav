@@ -1,0 +1,99 @@
+@if(application) {
+
+<section>
+  <!-- Header -->
+  <div class="mb-8">
+    <h1 class="text-3xl text-[#0D141C] font-bold">{{ application.name }}</h1>
+    <p class="text-[#444444] my-3">{{ application.title }}</p>
+    <p class="text-xs text-[#888888]">
+      Submitted on {{ application.submittedAt }}
+    </p>
+  </div>
+
+  <!-- Application Form -->
+  <div class="space-y-6">
+    <h2 class="text-[22px] text-[#0D141C] font-bold pb-2">Application Form</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+      <div>
+        <p class="text-[#4A739C]">Full Name</p>
+        <p class="text-[#0D141C]">{{ application.fullName }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Email</p>
+        <p class="text-[#0D141C]">{{ application.email }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Phone</p>
+        <p class="text-[#0D141C]">{{ application.phone }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Resume</p>
+        <div class="flex gap-2 text-[#0D141C]">
+          <span>{{ application.resumeName }}</span>
+          <a
+            href="/sessions-content.pdf"
+            download="sessions-content.pdf"
+            class="underline font-semibold"
+          >
+            Download
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Portfolio</p>
+        <a
+          href="https://{{ application.portfolio }}"
+          target="_blank"
+          rel="noopener"
+        >
+          {{ application.portfolio }}
+        </a>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">LinkedIn Profile</p>
+        <a
+          href="https://{{ application.linkedin }}"
+          target="_blank"
+          rel="noopener"
+          class="underline"
+        >
+          {{ application.linkedin }}
+        </a>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Years of Experience</p>
+        <p class="text-[#0D141C]">{{ application.yearsOfExperience }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Preferred Role</p>
+        <p class="text-[#0D141C]">{{ application.preferredRole }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Availability</p>
+        <p class="text-[#0D141C]">{{ application.availability }}</p>
+      </div>
+      <div>
+        <p class="text-[#4A739C]">Salary Expectations</p>
+        <p class="text-[#0D141C]">
+          {{ application.salaryExpectations }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Additional Questions -->
+  <div class="mt-10">
+    <h2 class="text-[22px] text-[#0D141C] font-bold pb-2">
+      Additional Questions
+    </h2>
+    <div class="mt-4 grid grid-cols-2 gap-3 max-w-2xl">
+      @for (q of application.questions; track $index) {
+      <div class="text-sm">
+        <p class="text-[#4A739C]">{{ q.q }}</p>
+        <p class="text-[#0D141C]">{{ q.a }}</p>
+      </div>
+      }
+    </div>
+  </div>
+</section>
+}

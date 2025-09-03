@@ -1,0 +1,105 @@
+<div class="rounded-lg">
+  <!-- Search -->
+  <div class="w-full">
+    <label
+      for="default-search"
+      class="mb-2 text-sm font-medium text-gray-900 sr-only"
+      >Search</label
+    >
+    <div class="relative">
+      <div
+        class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          class="w-4 h-4 text-gray-500"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 20 20"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+          />
+        </svg>
+      </div>
+      <input
+        type="search"
+        [(ngModel)]="searchText"
+        id="default-search"
+        class="block w-full p-2 ps-10 text-sm text-gray-900 border border-[#CCCCCC] rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Search"
+        required
+      />
+    </div>
+  </div>
+
+  <!-- Sort -->
+  <div class="p-4 flex justify-between items-center">
+    <div class="max-w-sm">
+      <select
+        id="countries"
+        title="sort blogs"
+        #sortSelect
+        (change)="onSortChange(sortSelect.value)"
+        class="bg-gray-50 cursor-pointer border block w-full py-2 px-4 border-gray-300 text-gray-900 text-sm rounded-full focus:ring-blue-500 focus:border-blue-500 focus:outline-0"
+      >
+        <option value="dateDesc" selected>Sort by Date (Newest)</option>
+        <option value="dateAsc">Sort by Date (Oldest)</option>
+        <option value="nameAsc">Sort by Name (A-Z)</option>
+        <option value="nameDesc">Sort by Name (Z-A)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="border border-[#CACACA] rounded-lg overflow-hidden">
+    <!-- Scrollable body -->
+    <div class="h-56 overflow-y-auto scroll-hidden">
+      <table class="w-full text-left">
+        <thead class="bg-[#FBFDFE] sticky top-0">
+          <tr class="text-[#0D141C] text-sm">
+            <th class="p-3 font-medium">Title</th>
+            <th class="p-3 font-medium">Date</th>
+            <th class="p-3 font-medium">Status</th>
+            <th class="p-3 font-medium">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (blog of blogs() | sortBy:sortField():sortOrder() | searchBy:
+          searchText() : 'title'; track blog.id) {
+          <tr class="border-y border-[#CACACA] text-[#0D141C] text-sm">
+            <td class="p-3">{{ blog.title }}</td>
+            <td class="p-3">{{ blog.date | date : "yyyy-MM-dd" }}</td>
+            <td class="p-3">{{ blog.status }}</td>
+            <td class="p-3 flex gap-3 text-[#1D3947] font-bold">
+              <button class="cursor-pointer" (click)="editBlog(blog)">
+                Edit
+              </button>
+              <span>|</span>
+              <button class="cursor-pointer" (click)="openDeleteModal(blog.id)">
+                Delete
+              </button>
+            </td>
+          </tr>
+          } @empty {
+          <tr>
+            <td colspan="4" class="p-5 text-center text-gray-500">
+              No data available
+              <img
+                src="./icons/empty-box.webp"
+                width="70px"
+                class="block mx-auto mt-2"
+                alt=""
+              />
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<app-blog-delete-modal #deleteModal (confirm)="deleteBlog()" />
